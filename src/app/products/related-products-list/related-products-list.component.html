@@ -1,0 +1,98 @@
+<div *ngIf="products" class="horizontal-scroll mt-5">
+	<div class="d-flex flex-nowrap">
+		<div *ngFor="let product of products" class="col-6 col-md-6 col-lg-4 col-xl-3">
+			<div 
+				*ngIf="product.typeProduct"  
+				class="card"
+				[ngClass]="{
+					'bg-yellow': product.typeProduct.name === 'BAR',
+					'bg-brown': product.typeProduct.name === 'RESTAURANT',
+					'bg-grey': product.typeProduct.name === 'ACCOMODATION',
+					'bg-green': product.typeProduct.name === 'ACTIVITIES',
+					'bg-lila': product.typeProduct.name === 'CULTURE'}">
+			<ng-container *ngIf="getMainImage(product.images) as mainImage">
+				<img 
+					[src]="mainImage.url" 
+					alt="{{ mainImage.name }}" 
+					class="card-img-top"
+					role="button" 
+					data-bs-toggle="modal" 
+					data-bs-target="#nearbyProductModal"
+					(click)="selectNearbyProduct(product)">
+			</ng-container>
+			<div class="card-body">
+				<h5 class="card-title">{{ product.name }}</h5>
+				<span 
+					*ngIf="product.typeProduct" 
+					class="custom-badge mt-2 d-inline-flex"
+					[ngClass]="{
+						'bg-yellow': product.typeProduct.name === 'BAR',
+						'bg-brown': product.typeProduct.name === 'RESTAURANT',
+						'bg-grey': product.typeProduct.name === 'ACCOMODATION',
+						'bg-green': product.typeProduct.name === 'ACTIVITIES',
+						'bg-lila': product.typeProduct.name === 'CULTURE'}">
+					{{ 'MASTER_TABLES.TYPE_PRODUCT.' + product.typeProduct.name | translate }}
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="nearbyProductModal" tabindex="-1" aria-labelledby="nearbyProductModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header"
+				[ngClass]="{
+					'bg-yellow': selectedNearbyProduct?.typeProduct.name === 'BAR',
+					'bg-brown': selectedNearbyProduct?.typeProduct.name === 'RESTAURANT',
+					'bg-grey': selectedNearbyProduct?.typeProduct.name === 'ACCOMODATION',
+					'bg-green': selectedNearbyProduct?.typeProduct.name === 'ACTIVITIES',
+					'bg-lila': selectedNearbyProduct?.typeProduct.name === 'CULTURE'}">
+					<h3 class="modal-title fs-5" id="nearbyProductModalLabel">{{ selectedNearbyProduct?.name }}</h3>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+				<div id="carouselModal" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-inner">
+						<ng-container *ngFor="let image of selectedNearbyProduct?.images; let i = index">
+							<div class="carousel-item" [class.active]="i === 0">
+								<img [src]="image.url" alt="{{ image.name }}" class="d-block w-100">
+							</div>
+						</ng-container>
+						
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselModal" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselModal" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+
+				<p class="mt-3">{{ selectedNearbyProduct?.address }}<br>
+					{{ selectedNearbyProduct?.cp }} - {{ selectedNearbyProduct?.location }}
+				</p>
+
+				<div class="mt-3">
+					{{ selectedNearbyProduct?.desc }}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<p class="w-100"
+					[ngClass]="{
+						'bg-yellow-before': selectedNearbyProduct?.typeProduct.name === 'BAR',
+						'bg-brown-before': selectedNearbyProduct?.typeProduct.name === 'RESTAURANT',
+						'bg-grey-before': selectedNearbyProduct?.typeProduct.name === 'ACCOMODATION',
+						'bg-green-before': selectedNearbyProduct?.typeProduct.name === 'ACTIVITIES',
+						'bg-lila-before': selectedNearbyProduct?.typeProduct.name === 'CULTURE'}">
+					{{ 'PRODUCT.TEL' | translate}}: <a class="custom-link d-inline-block" href="tel:{{ selectedNearbyProduct?.tel }}">{{ selectedNearbyProduct?.tel }}</a> <br>
+					{{ 'PRODUCT.EMAIL' | translate}}: <a class="custom-link d-inline-block" href="mailto:{{ selectedNearbyProduct?.email }}">{{ selectedNearbyProduct?.email }}</a> <br>
+					{{ 'PRODUCT.WEB' | translate}}: <a class="custom-link d-inline-block" href="https://{{ selectedNearbyProduct?.web }}"> {{ selectedNearbyProduct?.web  | shortUrl}} </a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

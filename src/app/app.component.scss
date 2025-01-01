@@ -1,0 +1,64 @@
+.full-width-image {
+    width: 100vw;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    position: relative;
+    margin-top: calc(-1 * var(--height-header-desktop));
+
+    .container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(var(--bs-body-color-rgb), .25);
+        z-index: 0;
+    }
+
+    @media screen and (max-width: 1199px) {
+        &::before {
+            background-color: rgba(var(--bs-body-color-rgb), .35);
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        &::before {
+            background-color: rgba(var(--bs-body-color-rgb), .45);
+        }
+    }
+}
+
+.title-intro {
+    text-align: center;
+    color: #fff;
+    color: transparent;
+    color: rgba(255, 255, 255, 0.1);
+    font-size: 6rem;
+    -webkit-text-stroke: 2px #fff;
+
+    @media screen and (max-width: 1199px) {
+        font-size: 4.5rem;
+        -webkit-text-stroke: 1.5px #fff;
+    }
+
+    @media screen and (max-width: 991px) {
+        font-size: 3rem;
+        -webkit-text-stroke: 1px #fff;
+    }
+}

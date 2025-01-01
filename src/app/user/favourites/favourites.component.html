@@ -1,0 +1,30 @@
+<app-layout>
+  <h1>{{ 'DASHBOARD.FAVOURITES' | translate }}</h1>
+
+  <div *ngIf="emptyList">
+    <div class="alert alert-light" role="alert">
+      {{ emptyList | translate }}
+    </div>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-3 g-2">
+    <div *ngFor="let product of products" class="col">
+      <div 
+        class="card h-100" 
+        role="button" 
+        (click)="getProductById(product.id)">
+        <ng-container *ngIf="getMainImage(product.images) as mainImage">
+            <img 
+                [src]="mainImage.url" 
+                alt="{{ mainImage.name }}" 
+                class="card-img-top">
+        </ng-container>
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ product.name }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-layout>

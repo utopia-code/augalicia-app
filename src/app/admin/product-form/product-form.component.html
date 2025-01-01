@@ -1,0 +1,435 @@
+<div *ngIf="isOpenMode" class="product-form">
+  <h2 class="mt-4">
+    {{ 
+      isUpdateMode 
+        ? ('PRODUCT.EDIT' | translate) 
+        : ('PRODUCT.CREATE' | translate)
+    }}
+  </h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
+    <div class="mb-3">
+      <label for="name" class="form-label">{{ 'PRODUCT.NAME' | translate }}:</label>
+      <input 
+        type="text" 
+        id="name" 
+        formControlName="name"
+        class="form-control"
+        [ngClass]="{'is-invalid': name.errors && isValidForm != null && !isValidForm }">
+
+      <div *ngIf="name.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+        <div *ngIf="name.errors['required']">
+            {{ 'FORM.ERROR.REQUIRED' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="tel" class="form-label">{{ 'PRODUCT.TEL' | translate }}:</label>
+      <input 
+        type="text" 
+        id="tel" 
+        formControlName="tel"
+        class="form-control"
+        [ngClass]="{'is-invalid': tel.errors && isValidForm != null && !isValidForm }">
+
+      <div *ngIf="tel.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+        <div *ngIf="tel.errors['required']">
+            {{ 'FORM.ERROR.REQUIRED' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="mb-3 col-md-6">
+        <label for="email" class="form-label">{{ 'PRODUCT.EMAIL' | translate }}:</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{'is-invalid': email.errors && isValidForm != null && !isValidForm }">
+  
+        <div *ngIf="email.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+          <div *ngIf="email.errors['required']">
+              {{ 'FORM.ERROR.REQUIRED' | translate }}
+          </div>
+          <div *ngIf="email.errors['pattern']">
+              {{ 'FORM.ERROR.EMAIL_INVALID' | translate }}
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-3 col-md-6">
+        <label for="web" class="form-label">{{ 'PRODUCT.WEB' | translate }}:</label>
+        <input 
+          type="text" 
+          id="web" 
+          formControlName="web"
+          class="form-control"
+          [ngClass]="{'is-invalid': web.errors && isValidForm != null && !isValidForm }">
+  
+        <div *ngIf="web.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+          <div *ngIf="web.errors['required']">
+              {{ 'FORM.ERROR.REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="mb-3 col-md-6">
+        <label for="address" class="form-label">{{ 'PRODUCT.ADDRESS' | translate }}:</label>
+        <input 
+          type="text" 
+          id="address" 
+          formControlName="address"
+          class="form-control"
+          [ngClass]="{'is-invalid': address.errors && isValidForm != null && !isValidForm }">
+  
+        <div *ngIf="address.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+          <div *ngIf="address.errors['required']">
+              {{ 'FORM.ERROR.REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-3 col-md-6">
+        <label for="cp" class="form-label">{{ 'PRODUCT.CP' | translate }}:</label>
+        <input 
+          type="text" 
+          id="cp" 
+          formControlName="cp"
+          class="form-control"
+          [ngClass]="{'is-invalid': cp.errors && isValidForm != null && !isValidForm }">
+  
+        <div *ngIf="cp.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+          <div *ngIf="cp.errors['required']">
+              {{ 'FORM.ERROR.REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="mb-3 col-md-6">
+        <label for="location" class="form-label">{{ 'PRODUCT.LOCATION' | translate }}:</label>
+        <input 
+          type="text" 
+          id="location" 
+          formControlName="location"
+          class="form-control"
+          [ngClass]="{'is-invalid': location.errors && isValidForm != null && !isValidForm }">
+  
+        <div *ngIf="location.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+          <div *ngIf="location.errors['required']">
+              {{ 'FORM.ERROR.REQUIRED' | translate }}
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-3 col-md-6">
+        <label for="coordinates" class="form-label">{{ 'PRODUCT.COORDINATES' | translate }}:</label>
+        <input 
+          type="text" 
+          id="coordinates" 
+          formControlName="coordinates"
+          class="form-control"
+          [ngClass]="{'is-invalid': coordinates.errors && isValidForm != null && !isValidForm }">
+  
+        <div *ngIf="coordinates.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+          <div *ngIf="coordinates.errors['required']">
+              {{ 'FORM.ERROR.REQUIRED' | translate }}
+          </div>
+        </div>
+      </div> 
+    </div>
+
+    <div class="mb-3">
+      <label for="desc" class="form-label">{{ 'PRODUCT.DESC' | translate }}:</label>
+      <textarea 
+        id="desc" 
+        formControlName="desc"
+        class="form-control"
+        [ngClass]="{'is-invalid': desc.errors && isValidForm != null && !isValidForm }">
+      </textarea>
+
+      <div *ngIf="desc.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+        <div *ngIf="desc.errors['required']">
+            {{ 'FORM.ERROR.REQUIRED' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.IMAGES.THIS' | translate }}:</p>
+
+      <div class="container-preview-images"> 
+        <div *ngFor="let image of this.imagesList; let i = index" class="d-flex flex-column">
+          <img 
+            [src]="image.url" 
+            alt="{{ 'PRODUCT.IMAGES.ALT' | translate: { img: image.name }  }}">
+          <button type="button" class="btn btn-secondary" (click)="removeUploadedImage(i)">{{ 'DELETE' | translate }}</button>
+        </div>
+      </div>
+      
+      <input
+        style="display: none;"
+        type="file"
+        accept=".webp, .png, .jpg, .jpeg"
+        (change)="onFilesChange($event)"
+        multiple
+        #fileInput
+      />
+      <button 
+        type="button" 
+        class="btn btn-secondary my-3" 
+        (click)="fileInput.click()">
+        {{ 'PRODUCT.IMAGES.SELECT' | translate }}
+      </button>
+
+      <div *ngIf="filePreviews.length > 0" class="container-preview-images">
+        <div *ngFor="let preview of filePreviews; let i = index" class="d-flex flex-column">
+          <img [src]="preview.url" alt="{{ 'PRODUCT.IMAGES.ALT' | translate: { img: preview.name}  }}">
+          <button type="button" class="btn btn-secondary" (click)="removePreview(i)">{{ 'DELETE' | translate }}</button>
+        </div>
+      </div>
+
+      <div *ngIf="fileError" class="error">
+        {{ 'PRODUCT.IMAGES.ERROR' | translate }}
+      </div>
+    </div>
+
+
+    <div class="custom-title-solid title-full-width my-4">{{ 'PRODUCT.TYPE_PRODUCT' | translate }}:</div>
+
+    <div class="row">
+      <div class="mb-3 col-md-6">
+        <label for="typeProduct" class="form-label">{{ 'PRODUCT.TYPE_PRODUCT' | translate }}:</label>
+        <select 
+          id="typeProduct" 
+          formControlName="typeProduct" 
+          class="form-select"
+          (change)="onTypeProductChange()">
+          <option value="" disabled selected>-- {{ 'FORM.SELECT' | translate }} --</option>
+          <option *ngFor="let option of typeProductList" [ngValue]="option.name">
+            {{ 'MASTER_TABLES.TYPE_PRODUCT.' + option.name | translate }}
+          </option>
+        </select>
+      </div>
+  
+      <div *ngIf="selectedTypeProduct === 'TERMAL_WATER'" class="mb-3 col-md-6">
+        <label for="typeTermalCentre" class="form-label">{{ 'PRODUCT.TYPE_TERMAL_CENTRE' | translate }}:</label>
+        <select id="typeTermalCentre" formControlName="typeTermalCentre" class="form-select">
+          <option value="" disabled selected>-- {{ 'FORM.SELECT' | translate }} --</option>
+          <option *ngFor="let option of typeTermalCentreList" [ngValue]="option.name">
+            {{ 'MASTER_TABLES.TYPE_TERMAL_CENTRE.' + option.name | translate }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="selectedTypeProduct === 'TERMAL_WATER'">
+
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="ageRequirement" class="form-label">{{ 'PRODUCT.MIN_AGE' | translate }}:</label>
+          <input 
+            type="number" 
+            id="ageRequirement" 
+            formControlName="ageRequirement"
+            class="form-control">
+        </div> 
+    
+        <div class="mb-3 col-md-6">
+          <label for="temperature" class="form-label">{{ 'PRODUCT.TEMPERATURE' | translate }}:</label>
+          <input 
+            type="number" 
+            id="temperature" 
+            formControlName="temperature"
+            class="form-control">
+        </div> 
+      </div>
+  
+      <div *ngIf="termalTechniquesList.length > 0" class="mb-3">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.TERMAL_TECHNIQUES' | translate }}:</p>
+        <div formArrayName="termalTechniques" class="custom-grid-col-6">
+          <div *ngFor="let termalTechnique of termalTechniquesList; let i = index" class="form-check">
+            <label>
+              <input type="checkbox" [formControlName]="i" class="form-check-input">
+              {{ 'MASTER_TABLES.TERMAL_TECHNIQUES.' + termalTechnique.name | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="typeWatersList.length > 0" class="mb-3">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.TYPE_WATER' | translate }}:</p>
+        <div formArrayName="typeWaters" class="custom-grid-col-6">
+          <div *ngFor="let typeWater of typeWatersList; let i = index" class="form-check">
+            <label>
+              <input 
+                type="checkbox" [formControlName]="i" class="form-check-input">
+              {{ 'MASTER_TABLES.TYPE_WATER.' + typeWater.name | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="treatmentsList.length > 0" class="mb-3">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.TREATMENTS' | translate }}:</p>
+        <div formArrayName="treatments" class="custom-grid-col-6">
+          <div *ngFor="let treatment of treatmentsList; let i = index" class="form-check">
+            <label>
+              <input type="checkbox" [formControlName]="i" class="form-check-input">
+              {{ 'MASTER_TABLES.TREATMENTS.' + treatment.name | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="servicesList.length > 0" class="mb-3">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.SERVICES' | translate }}:</p>
+        <div formArrayName="services" class="custom-grid-col-6">
+          <div *ngFor="let service of servicesList; let i = index" class="form-check">
+            <label>
+              <input type="checkbox" [formControlName]="i" class="form-check-input">
+              {{ 'MASTER_TABLES.SERVICES.' + service.name | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+      
+  
+      <div *ngIf="accesibilityList.length > 0" class="mb-3" class="form-check">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.ACCESSIBILITY' | translate }}:</p>
+        <div formArrayName="accesibility" class="custom-grid-col-6">
+          <div *ngFor="let accesibility of accesibilityList; let i = index">
+            <label>
+              <input type="checkbox" [formControlName]="i" class="form-check-input">
+              {{ 'MASTER_TABLES.ACCESSIBILITY.' + accesibility.name | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="complementaryTechniquesList.length > 0" class="mb-3" class="form-check">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.COMPLEMENTARY_TECHNIQUES' | translate }}:</p>
+        <div formArrayName="complementaryTechniques" class="custom-grid-col-6">
+          <div *ngFor="let complementaryTechnique of complementaryTechniquesList; let i = index">
+            <label>
+              <input type="checkbox" [formControlName]="i" class="form-check-input">
+              {{ 'MASTER_TABLES.COMPLEMENTARY_TECHNIQUES.' + complementaryTechnique.name | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="openingSeasonList.length > 0" class="mb-3">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.OPENING_SEASON' | translate }}:</p>
+        <div formArrayName="openingSeason" class="custom-grid-col-6">
+          <div *ngFor="let openingSeason of openingSeasonList; let i = index" class="form-check">
+            <label>
+              <input 
+                type="checkbox" [formControlName]="i" class="form-check-input">
+              {{ 'MASTER_TABLES.OPENING_SEASON.' + openingSeason.name | translate }}
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <p class="custom-title-solid title-full-width mt-4">{{ 'PRODUCT.NOTIFICATION.THIS' | translate }}:</p>
+  
+        <div class="row">
+
+          <div class="mb-3 col-md-6">
+            <label for="notificationType" class="form-label">{{ 'PRODUCT.NOTIFICATION.TYPE' | translate }}:</label>
+            <select id="notificationType" formControlName="notificationType" class="form-select">
+              <option value="" disabled selected>-- {{ 'FORM.SELECT' | translate }} --</option>
+              <option *ngFor="let option of notificationTypeList" [ngValue]="option">
+                  {{  'PRODUCT.NOTIFICATION.SELECT_TYPE.' + (option | uppercase ) | translate }}
+              </option>
+            </select>
+          </div>
+    
+          <div class="mb-3 col-md-6">
+            <label for="notificationPosition" class="form-label">{{ 'PRODUCT.NOTIFICATION.POSITION' | translate }}:</label>
+            <select id="notificationPosition" formControlName="notificationPosition" class="form-select">
+              <option value="" disabled selected>-- {{ 'FORM.SELECT' | translate }} --</option>
+              <option *ngFor="let option of notificationPositionList" [ngValue]="option">
+                {{  'PRODUCT.NOTIFICATION.SELECT_POSITION.' + (option | uppercase ) | translate }}
+              </option>
+            </select>
+          </div>
+        </div>
+        
+  
+        <div class="mb-3">
+          <label for="notificationDesc" class="form-label">{{ 'PRODUCT.NOTIFICATION.TEXT' | translate }}:</label>
+          <textarea  id="notificationDesc" formControlName="notificationDesc" class="form-control"></textarea>
+        </div>
+  
+        <div class="d-flex justify-content-end mb-3">
+          <button type="button" class="btn btn-secondary" (click)="addNotification()">{{ 'PRODUCT.NOTIFICATION.ADD' | translate }}</button>
+        </div>  
+      </div>
+  
+      <div *ngIf="notifications.length > 0" class="mb-3">
+        <h4>{{ 'PRODUCT.NOTIFICATION.LIST' | translate }}</h4>
+       
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{ 'PRODUCT.NOTIFICATION.TYPE' | translate }}</th>
+              <th>{{ 'PRODUCT.NOTIFICATION.TEXT' | translate }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr></tr>
+            <tr></tr>
+            <tr  *ngFor="let notification of notifications; let i = index">
+              <td>{{ notification.type }}</td>
+              <td>{{ notification.desc }}</td>
+              <td>
+                <button 
+                  type="button" 
+                  class="nav-link icon-link" 
+                  (click)="removeNotification(i)">
+                  <fa-icon [icon]="faTrashCan"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    
+
+    <div class="row mt-5">
+      <div class="col-6 col-md-4">
+          <button 
+            type="submit" 
+            class="btn btn-primary w-100">
+            {{ 
+              isUpdateMode 
+              ? ('FORM.SAVE' | translate)
+              : ('PRODUCT.CREATE' | translate: { field: ('PRODUCT.THIS' | translate) | lowercase })  
+            }} 
+        </button>
+      </div>
+      <div class="col-6 col-md-4">
+        <button 
+          type="button" 
+          class="btn btn-secondary w-100"
+          (click)="cancelForm()">
+          {{ 'CANCEL' | translate }}
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>

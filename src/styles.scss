@@ -1,0 +1,337 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Bigshot+One&family=Telex&display=swap');
+
+/*
+FONTS
+*/
+
+/* telex-regular - latin */
+// @font-face {
+//     font-display: swap;
+//     font-family: 'Telex';
+//     font-style: normal;
+//     font-weight: 400;
+//     src: url('/assets/fonts/Telex/Telex-Regular.woff2') format('woff2'),
+//          url('/assets/fonts/Telex/Telex-Regular.ttf') format('truetype'); 
+// }
+  
+/* bigshot-one-regular - latin */
+// @font-face {
+//     font-display: swap;
+//     font-family: 'Bigshot One';
+//     src: url('/assets/fonts/Bigshot_One/BigshotOne_Regular.woff2') format('woff2'),
+//          url('/assets/fonts/Bigshot_One/BigshotOne_Regular.ttf') format('truetype');
+//     font-weight: 400;
+//     font-style: normal;
+// }
+
+/*
+CUSTOM GLOBAL BOOTSTRAP STYLES
+*/
+
+:root {
+    --bs-body-color: #000;
+    --bs-body-color-rgb: 0,0,0;
+    
+    --bs-body-bg: #fff;
+    --bs-body-bg-rgb: 255,255,255;
+
+    --bs-primary: #009dc4;
+    --bs-primary-rgb: 0, 157, 196;
+    // --bs-primary: #34B3F1;
+    // --bs-primary-rgb: 52, 179, 241;
+
+    //--bs-secondary-color: #161E54; // #083a75
+    --bs-secondary-color: #083a75;
+    // --bs-secondary-color-rgb: 22, 30, 84; 
+    --bs-secondary-color-rgb: 22, 30, 84; 
+
+    --bs-tertiary-color: #FF5151;
+    --bs-tertiary-color-rgb: 255, 81, 81;
+
+    --bs-emphasis-color: #F15412;
+    --bs-emphasis-color-rgb: 241, 84, 18;
+ 
+    --bs-body-font-family: "Telex", sans-serif;
+
+    --bs-green-rgb: 77,97,82;
+    --bs-lila-rgb: 100, 53, 83;
+    --bs-yellow-rgb: 200, 193, 142;
+    --bs-rose-rgb: 226, 200, 217;
+    --bs-brown-rgb: 60, 60, 59;
+    --bs-grey-rgb: 41, 71, 84;
+
+    --height-header-desktop: 60px;
+}
+
+.btn-primary {
+	--bs-btn-color: #fff;
+	--bs-btn-bg: var(--bs-primary);
+	--bs-btn-border-color: var(--bs-primary);
+	--bs-btn-hover-color: #fff;
+	--bs-btn-hover-bg: rgba(var(--bs-primary-rgb), .85);
+	--bs-btn-hover-border-color: transparent;
+	--bs-btn-focus-shadow-rgb: 49,132,253;
+	--bs-btn-active-color: #fff;
+	--bs-btn-active-bg: rgba(var(--bs-primary-rgb), .85);
+	--bs-btn-active-border-color: transparent;
+	--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+	--bs-btn-disabled-color: #fff;
+	--bs-btn-disabled-bg: var(--bs-primary);
+	--bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-secondary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--bs-body-color);
+    // --bs-btn-bg: var(--bs-secondary-color);
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: rgba(var(--bs-body-color-rgb), .55);
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-focus-shadow-rgb: 130,138,145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: rgba(var(--bs-body-color-rgb), .55);
+    // --bs-btn-active-bg: rgba(var(--bs-secondary-color-rgb), .55);
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #6c757d;
+    --bs-btn-disabled-border-color: transparent;
+
+    &.no-hover {
+        --bs-btn-hover-bg: rgba(var(--bs-body-color-rgb), 1);
+    }
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent;
+    color: rgba(var(--bs-body-color-rgb), .75)
+}
+
+.mt-6 {
+    margin-top: 4rem;
+}
+
+
+/*
+TYPE PRODUCT COLORS
+*/
+
+@mixin bg-color($color-rgb) {
+    background-color: rgba($color-rgb, var(--bs-bg-opacity, 1)) !important;
+}
+
+.bg-green {
+    @include bg-color(var(--bs-green-rgb));
+}
+
+.bg-lila {
+    @include bg-color(var(--bs-lila-rgb));
+}
+
+.bg-yellow {
+    @include bg-color(var(--bs-yellow-rgb));
+}
+
+.bg-rose {
+    @include bg-color(var(--bs-rose-rgb));
+}
+
+.bg-brown {
+    @include bg-color(var(--bs-brown-rgb));
+}
+
+.bg-grey {
+    @include bg-color(var(--bs-grey-rgb));
+}
+
+
+
+/*
+CUSTOM GLOBAL STYLES
+*/
+
+body {
+    margin-top: var(--height-header-desktop);
+}
+
+.full-h-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - var(--height-header-desktop));
+}
+
+img {
+    max-width: 100%;
+}
+
+h1, h2 {
+    font-family: 'Bigshot One', serif;
+    margin-bottom: 1.5rem;
+}
+
+a.custom-link {
+    position: relative;
+    color: var(--bs-body-color);
+    text-decoration: none;
+
+    &:before {
+        content: '';
+        background-color: rgba(var(--bs-primary-rgb), .45);
+        position: absolute;
+        left: 0;
+        bottom: 3px;
+        width: 100%;
+        height: 5px;
+        z-index: -1;
+        transition: all .3s ease-in-out;
+    }
+
+    &:hover {
+        &::before {
+            bottom: 0;
+            height: 100%;
+        }
+    }
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.custom-layout-sm {
+    max-width: 575.98px;
+    margin: 0 auto;
+}
+.custom-layout-md {
+    max-width: 767.98px;
+    margin: 0 auto;
+}
+.custom-layout-lg {
+    max-width: 991.98px;
+    margin: 0 auto;
+}
+.custom-layout-xl {
+    max-width: 1199.98px;
+    margin: 0 auto;
+}
+.custom-layout-xxl {
+    max-width: 1399.98px;
+    margin: 0 auto;
+}
+
+.custom-layout-bg {
+    background: linear-gradient(rgba(240, 240, 237, .3), rgba(222, 233, 239, .3) );
+    padding: 40px 20px;
+}
+
+.custom-grid-col-6 {
+    @media screen and (min-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.custom-title-solid {
+    background-color: var(--bs-body-color);
+    color: var(--bs-body-bg);
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.title-full-width {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.custom-bg-aside {
+    background-color: rgba(var(--bs-primary-rgb), .1);
+}
+
+
+
+/*
+CUSTOM ANIMATION CARDS
+*/
+
+.custom-hover-animation {
+    .c-image {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0; 
+            display: block;
+            width: 100%;
+            height: 120%;
+            background-repeat:repeat-x;
+        }
+
+        &:before {
+            z-index: 1;
+            opacity: .2;
+        }
+
+        &:after {
+            z-index: 2;
+            animation-direction: reverse;
+            opacity: .22;
+        }
+    }
+
+    &:hover {
+        .c-image:before,
+        .c-image:after {
+            background-image:url('http://localhost:3000/wave_400.png');
+        }
+
+        .c-image:before {
+            animation: wave-animation .7s infinite linear, loading-animation 1.1s ease-out forwards alternate;
+        }
+
+        .c-image:after {
+            animation: wave-animation-reverse .6s infinite linear, loading-animation 1.1s ease-out forwards alternate;
+        }
+    }
+    
+}
+
+@keyframes wave-animation {
+    0%{ background-position: 0 top };
+    100%{ background-position: 150px top };
+}
+@keyframes wave-animation-reverse {
+    0%{background-position: 150px top};
+    100%{background-position: 0 top};
+}
+
+@keyframes loading-animation{
+    0%{
+        background-size: 150px 250px;
+        transform: translateY(90%);
+    };
+    100%{
+        background-size: 150px 450px;
+        transform: translateY(-15%);
+    };
+}

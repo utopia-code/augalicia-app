@@ -1,0 +1,16 @@
+.custom-toast-alert {
+    background-color: var(--bs-danger-bg-subtle); 
+    color: var(--bs-danger-rgb);          
+}
+
+.custom-toast-success {
+    background-color: var(--bs-success-bg-subtle); 
+    color: var(--bs-success-rgb); 
+}
+
+.custom-toast-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1055;
+}

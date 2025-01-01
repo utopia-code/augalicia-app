@@ -1,0 +1,22 @@
+.footer {
+    background: rgba(0, 0, 0,.8);
+    font-size: .85rem;
+}
+
+.list-group {
+    --bs-list-group-color: rgba(var(--bs-body-bg-rgb), .75);
+    --bs-list-group-bg: transparent;
+    --bs-list-group-border-color: transparent;
+}
+
+.list-group-item {
+    --bs-list-group-item-padding-y: .2rem;
+}
+
+.navbar-brand {
+    --bs-navbar-brand-color: rgba(var(--bs-body-bg-rgb), .5);
+    &:hover,
+    &:focus {
+        --bs-navbar-brand-hover-color: rgba(var(--bs-body-bg-rgb), .5);
+    }
+}

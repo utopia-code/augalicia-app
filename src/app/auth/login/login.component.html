@@ -1,0 +1,51 @@
+<h1 class="text-center">Login</h1>
+<form [formGroup]="loginForm" (ngSubmit)="login()" class="custom-layout-sm">
+    <div class="mb-3">
+        <label for="email" class="form-label">{{ 'FORM.EMAIL' | translate }}: </label>
+        <input 
+            type="email" 
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{'is-invalid': email.errors && isValidForm != null && !isValidForm }"
+            >
+
+        <div *ngIf="email.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+            <div *ngIf="email.errors['required']">
+                {{ 'FORM.ERROR.REQUIRED' | translate }}
+            </div>
+            <div *ngIf="email.errors['pattern']">
+                {{ 'FORM.ERROR.EMAIL_INVALID' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">{{ 'FORM.PASSWORD' | translate }}:  </label>
+        <input 
+            type="password" 
+            formControlName="password" 
+            class="form-control"
+            [ngClass]="{'is-invalid': password.errors && isValidForm != null && !isValidForm }"
+        >
+
+        <div *ngIf="password.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+            <div *ngIf="password.errors['required']">
+                {{ 'FORM.ERROR.REQUIRED' | translate }}
+            </div>
+            <div *ngIf="password.errors['minlength']">
+                {{ 'FORM.ERROR.MIN_LENGTH' | translate: { field: 'FORM.PASSWORD' | translate, value: 6 } }}
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="mb-3 alert alert-danger" role="alert">
+        {{  errorMessage | translate }}
+    </div>
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit" class="btn btn-primary mt-3">
+            {{ 'FORM.LOGIN' | translate }}
+        </button> 
+    </div>
+
+</form>

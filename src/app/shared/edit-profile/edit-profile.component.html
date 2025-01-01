@@ -1,0 +1,163 @@
+<div class="d-flex justify-content-between gap-2">
+    <button 
+        class="btn btn-secondary px-md-5 my-3" 
+        type="button" 
+        (click)="showEditProfile()" 
+        [ngClass]="{ 'active': isEditProfil }">
+        {{ 'AUTH.EDIT_PROFIL' | translate }}
+    </button>
+    <button 
+        class="btn btn-secondary px-md-5 my-3" 
+        type="button" 
+        (click)="showEditPassword()" 
+        [ngClass]="{ 'active': isEditPassword }">
+        {{ 'AUTH.EDIT_PASSWORD' | translate }}
+    </button>
+    <button 
+        class="btn btn-secondary px-md-5 my-3" 
+        type="button" 
+        data-bs-toggle="modal" 
+        data-bs-target="#deleteUserModal">
+        {{ 'AUTH.DELETE' | translate }}
+    </button>
+</div>
+
+<div *ngIf="isEditProfil">
+    <h2 class="mt-4">{{ 'AUTH.EDIT_PROFIL' | translate }}</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="updateUser()">
+        <div class="mb-3">
+            <label for="name" class="form-label">{{ 'FORM.FIRST_NAME' | translate }}: </label>
+            <input 
+                type="text" 
+                formControlName="name" 
+                class="form-control"
+                [ngClass]="{'is-invalid': name.errors && isValidForm != null && !isValidForm }"
+            >
+    
+            <div *ngIf="name.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+                <div *ngIf="name.errors['required']">
+                    {{ 'FORM.ERROR.REQUIRED' | translate }}
+                </div>
+                <div *ngIf="name.errors['minlength']">
+                    {{ 'FORM.ERROR.MIN_LENGTH' | translate: { field: 'FORM.FIRST_NAME' | translate, value: 3 } }}
+                </div>
+            </div>
+        </div>
+    
+        <div class="mb-3">
+            <label for="surname" class="form-label">{{ 'FORM.LAST_NAME' | translate }}: </label>
+            <input 
+                type="text" 
+                formControlName="surname" 
+                class="form-control"
+                [ngClass]="{'is-invalid': surname.errors && isValidForm != null && !isValidForm }"
+            >
+    
+            <div *ngIf="surname.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+                <div *ngIf="surname.errors['required']">
+                    {{ 'FORM.ERROR.REQUIRED' | translate }}
+                </div>
+            </div>
+        </div>
+    
+        <div class="mb-3">
+            <label for="email" class="form-label">{{ 'FORM.EMAIL' | translate }}: </label>
+            <input 
+                type="email" 
+                formControlName="email" 
+                class="form-control"
+                [ngClass]="{'is-invalid': email.errors && isValidForm != null && !isValidForm }"
+            >
+    
+            <div *ngIf="email.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+                <div *ngIf="email.errors['required']">
+                    {{ 'FORM.ERROR.REQUIRED' | translate }}
+                </div>
+                <div *ngIf="email.errors['pattern']">
+                    {{ 'FORM.ERROR.EMAIL_INVALID' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="mb-3 alert alert-danger" role="alert">
+            {{ errorMessage | translate }}
+        </div>
+    
+        <button type="submit" class="btn btn-primary mt-3">{{ 'FORM.SAVE' | translate }}</button>    
+    </form>
+</div>
+
+
+<div *ngIf="isEditPassword">
+    <h2 class="mt-4">{{ 'AUTH.EDIT_PASSWORD' | translate }}</h2>
+
+    <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()" class="custom-layout-md">
+        <div class="mb-3">
+            <label for="currentPassword" class="form-label">{{ 'AUTH.CURRENT_PASSWORD' | translate }}:</label>
+            <input 
+                type="password" 
+                formControlName="currentPassword" 
+                class="form-control"
+                [ngClass]="{'is-invalid': currentPassword.errors && isValidForm != null && !isValidForm}"
+            >
+        </div>
+        
+        <div class="mb-3">
+            <label for="newPassword" class="form-label">{{ 'AUTH.NEW_PASSWORD' | translate }}:</label>
+            <input 
+                type="password" 
+                formControlName="newPassword" 
+                class="form-control"
+                [ngClass]="{'is-invalid': newPassword.errors && isValidForm != null && !isValidForm}"
+            >
+        </div>
+            
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">{{ 'AUTH.CONFIRM_PASSWORD' | translate }}:</label>
+            <input 
+                type="password" 
+                formControlName="confirmPassword" 
+                class="form-control"
+                [ngClass]="{'is-invalid': confirmPassword.errors && isValidForm != null && !isValidForm}"
+            >
+            <div *ngIf="passwordForm.errors?.['mismatch'] && isValidForm != null && !isValidForm" class="invalid-feedback">
+                {{ 'FORM.ERROR.PASSWORD' | translate }}
+            </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="mb-3 alert alert-danger" role="alert">
+            {{ errorMessage | translate }}
+        </div>
+    
+        <button type="submit" class="btn btn-primary mt-3">{{ 'FORM.SAVE' | translate }}</button>    
+    </form>
+</div>
+    
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5" id="deleteUserModalLabel">{{ 'MODAL.DELETE_PROFIL' | translate }}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ 'MODAL.DELETE_PROFIL_TEXT' | translate }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ "MODAL.NOT" | translate }}</button>
+                <button 
+                    type="button" 
+                    data-bs-dismiss="modal"
+                    (click)="deleteProfil()"  
+                    class="btn btn-primary">
+                    {{ 'AUTH.DELETE' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+  
+
+

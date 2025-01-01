@@ -1,0 +1,11 @@
+<div class="row justify-content-between mb-3 mb-md-5">
+    <div class="col-md-3 mb-1 mb-md-0" *ngFor="let link of links">
+        <button 
+            class="btn btn-secondary w-100" 
+            type="button" 
+            [routerLink]="link.route" 
+            routerLinkActive="active">
+            {{ link.labelKey | translate }}
+        </button>
+    </div>
+</div>

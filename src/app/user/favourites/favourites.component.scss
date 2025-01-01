@@ -1,0 +1,30 @@
+.card-img-top {
+    height: 110px;
+    width: auto;
+    object-fit: cover;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+.card {
+    position: relative;
+    --bs-card-inner-border-radius: 0;
+    --bs-card-border-radius: 0;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        transition: background-color .2s ease;
+    }
+
+    &:hover:after {
+        background-color: rgba(var(--bs-primary-rgb), .15);
+    }
+}

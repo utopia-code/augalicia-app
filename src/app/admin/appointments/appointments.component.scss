@@ -1,0 +1,10 @@
+.icon-link {
+    transition: color .2s ease;
+
+    &.hover-primary:hover {
+        color: var(--bs-primary);
+    }
+    &.hover-alert:hover {
+        color: var(--bs-danger);
+    }
+}

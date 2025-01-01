@@ -1,0 +1,18 @@
+<app-header [hasFullWidthImage]="hasFullWidthImage"></app-header>
+
+<app-toast></app-toast>
+
+<div 
+	*ngIf="hasFullWidthImage"  
+	class="full-width-image" 
+	[style.backgroundImage]="'url(' + fullWidthImage + ')'">
+	<div class="container">
+		<h1 class="title-intro">{{ routeTitle | translate }}</h1>
+	</div>
+</div>
+
+<div [ngClass]="{ 'container my-4 mt-md-4 mb-md-5': !isHomeRoute }">
+	<router-outlet></router-outlet>
+</div>
+
+<app-footer class="mt-auto"></app-footer>

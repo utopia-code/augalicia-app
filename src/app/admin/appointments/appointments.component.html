@@ -1,0 +1,93 @@
+<app-layout>
+  <h1>{{ 'APPOINTMENT.TITLE' | translate }}</h1>
+
+  <div *ngIf="emptyList"> 
+    <div class="alert alert-light" role="alert">
+      {{ emptyList | translate }}
+    </div>
+  </div>
+
+  <table *ngIf="appointments.length > 0" class="table">
+      <thead>
+        <tr>
+          <th>{{ 'APPOINTMENT.DATE' | translate }}</th>
+          <th>{{ 'APPOINTMENT.HOUR' | translate }}</th>
+          <th>{{ 'APPOINTMENT.PRICE' | translate }}</th>
+          <th>{{ 'APPOINTMENT.MAX_CAPACITY' | translate }}</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <td>{{ appointment.date }}</td>
+          <td>{{ appointment.hour }}</td>
+          <td>{{ appointment.price }}</td>
+          <td>{{ appointment.max_capacity }}</td>
+    
+          <td class="icon-cell">
+            <button 
+              class="nav-link icon-link hover-primary" 
+              type="button" 
+              (click)="updateAppointment(appointment)">
+              <fa-icon [icon]="faPenToSquare"></fa-icon>
+            </button>
+          </td>
+          <td class="icon-cell">
+            <button 
+              class="nav-link icon-link hover-alert" 
+              type="button" 
+              data-bs-toggle="modal" 
+              data-bs-target="#deleteAppointmentModal"
+              (click)="setCurrentDeleteAppointment(appointment)">
+              <fa-icon [icon]="faTrashCan"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button 
+      *ngIf="!isFormVisible"
+      type="button" 
+      class="btn btn-primary mt-4" 
+      (click)="createAppointment()">
+      {{ 'APPOINTMENT.CREATE' | translate }}
+    </button>
+  
+    <div *ngIf="isFormVisible">
+      <app-appointment-form
+      [appointmentId]="currentAppointmentId"
+      (sentComplete)="onFormComplete()"
+      (formCancelled)="onFormCancelled()">
+      </app-appointment-form>
+    </div>
+   
+</app-layout>
+
+
+<div class="modal fade" id="deleteAppointmentModal" tabindex="-1" aria-labelledby="deleteAppointmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title fs-5" id="deleteAppointmentModalLabel">{{ 'APPOINTMENT.DELETE' | translate }}</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              {{ 'MODAL.DELETE_APPOINTMENT_TEXT' | translate }}
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                {{ 'BACK' | translate }}
+              </button>
+              <button 
+                  type="button" 
+                  data-bs-dismiss="modal"
+                  (click)="deleteAppointment(currentDeleteAppointment)"  
+                  class="btn btn-primary">
+                  {{ 'DELETE' | translate }}
+              </button>
+          </div>
+      </div>
+  </div>
+</div>

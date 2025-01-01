@@ -1,0 +1,54 @@
+<app-layout>
+  <h1>{{ 'BOOKED_APPOINTMENTS.TITLE' | translate }}</h1>
+
+  <div *ngIf="emptyList">
+    <div class="alert alert-light" role="alert">
+      {{ emptyList | translate }}
+    </div>
+  </div>
+
+  <div *ngFor="let group of appointmentsGroupedByProduct">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <ng-container *ngIf="getMainImage(group.product?.images) as mainImage">
+            <img 
+              [src]="mainImage.url" 
+              alt="{{ mainImage.name }}">
+          </ng-container>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ group?.product?.name }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="mt-4">{{ 'BOOKINGS.THIS' | translate }}:</h4>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{ 'BOOKED_APPOINTMENTS.CUSTOMER_EMAIL' | translate }}</th>
+            <th>{{ 'BOOKINGS.PEOPLE' | translate }}</th>
+            <th>{{ 'BOOKED_APPOINTMENTS.TOTAL_PRICE' | translate }}</th>
+            <th>{{ 'APPOINTMENT.DATE' | translate }}</th>
+            <th>{{ 'APPOINTMENT.HOUR' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of group.bookings">
+            <td>{{ booking.userEmail }}</td>
+            <td>{{ booking.people }}</td>
+            <td>{{ group.appointmentDetails.price * booking.people }}€</td>
+            <td>{{ group.appointmentDetails.date }}</td>
+            <td>{{ group.appointmentDetails.hour }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</app-layout> 

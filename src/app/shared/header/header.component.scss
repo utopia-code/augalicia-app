@@ -1,0 +1,121 @@
+.navbar {
+    background-color: var(--bs-primary);
+    color: var(--bs-body-bg);
+    transition: background-color .3s ease;
+
+    &.bg-no-color {
+        background-color: transparent;
+
+        &.is-opened {
+            background-color: var(--bs-primary);
+        }
+    }
+
+    &.scrolled {
+        background-color: var(--bs-primary);
+    }
+}
+
+.navbar-toggler {
+    border: none;
+    color: rgba(var(--bs-body-bg-rgb), .75);
+    box-shadow: none;
+    transition: color .2s ease;
+
+    &:hover {
+        color: rgba(var(--bs-body-bg-rgb), 1);
+    }
+}
+
+.navbar-toggler-icon {
+    background-image: none;
+    width: auto;
+    height: auto;
+}
+
+.nav-link {
+    --bs-nav-link-color: rgba(var(--bs-body-bg-rgb), .75);
+    &:hover,
+    &:focus {
+        --bs-nav-link-hover-color: rgba(var(--bs-body-bg-rgb), 1);
+    }
+}
+
+.navbar-nav .nav-link.active, 
+.navbar-nav .nav-link.show {
+    --bs-navbar-active-color: rgba(var(--bs-body-bg-rgb), 1);
+}
+
+.navbar-brand {
+    --bs-navbar-brand-color: rgba(var(--bs-body-bg-rgb), 1);
+    &:hover,
+    &:focus {
+        --bs-navbar-brand-hover-color: rgba(var(--bs-body-bg-rgb), 1);
+    }
+}
+
+.dropdown-menu {
+    --bs-dropdown-min-width: auto;
+}
+
+.dropdown-item:focus, 
+.dropdown-item:hover {
+    --bs-dropdown-link-hover-bg: rgba(0,0,0, .1);
+}
+
+.fs-2 {
+    line-height: 1;
+}
+
+.icon-link {
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+        color: #000;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .container-fluid {
+        position: relative;
+    }
+
+    .navbar-brand {
+        order: 1;
+    }
+
+    .navbar-toggler {
+        margin-left: auto;
+        order: 2;
+    }
+
+    .navbar-lang {
+        order: 3;
+    }
+
+    .navbar-collapse {
+        order: 4;
+    }
+
+    .navbar-nav {
+        align-items: flex-end;
+
+        .d-flex {
+            flex-direction: column;
+        }
+    }
+
+    .btn-secondary,
+    .btn-secondary.active,
+    .btn-secondary:hover {
+        background-color: transparent;
+        text-align: right;
+        padding-left: 0;
+        padding-right: 0;
+
+        &:hover {
+            color: var(--bs-body-color);
+        }
+    }
+}

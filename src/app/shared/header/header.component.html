@@ -1,0 +1,159 @@
+<nav 
+  class="navbar navbar-expand-lg fixed-top"
+  [ngClass]="{
+    'bg-no-color': hasFullWidthImage,
+    'is-opened': isMenuOpen
+  }">
+  <div class="container container-fluid">
+    <a class="navbar-brand fs-2" role="button" (click)="home()">AuGalicia</a>
+    <button 
+      class="navbar-toggler" 
+      type="button"
+      aria-label="Toggle navigation"
+      (click)="toggleMenu()">
+      <span class="navbar-toggler-icon"><fa-icon [icon]="isMenuOpen ? faXmark : faBars"></fa-icon></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav col py-4 py-lg-0">
+  
+        <li class="nav-item mx-lg-auto">
+          <button 
+            class="btn btn-secondary" 
+            type="button" 
+            routerLink="/products" 
+            routerLinkActive="active">
+            {{ 'MAIN_LINK_HEADER' | translate | uppercase}}
+          </button>
+        </li>
+
+        <div *ngIf="showStandardSection" class="d-flex">
+          <button 
+            class="btn btn-secondary mx-lg-2" 
+            type="button" 
+            routerLink="/login" 
+            routerLinkActive="active">
+            {{ 'LOGIN' | translate }}
+          </button>
+          <button 
+            class="btn btn-secondary mx-lg-2" 
+            type="button" 
+            routerLink="/register" 
+            routerLinkActive="active">
+            {{ 'REGISTER' | translate }}
+          </button>
+        </div>
+
+        <li *ngIf="showUserSection">
+          <ul class="navbar-nav col">
+            <li class="nav-item mx-auto">
+              <a class="nav-link icon-link" role="button" (click)="userFavourites()">
+                <fa-icon [icon]="faHeart"></fa-icon>
+                {{ 'DASHBOARD.FAVOURITES' | translate }}
+              </a>
+            </li>
+            <li class="nav-item mx-auto">
+              <a class="nav-link icon-link" role="button" (click)="userBookings()">
+                <fa-icon [icon]="faCalendar"></fa-icon>
+                {{ 'DASHBOARD.BOOKINGS' | translate }}
+              </a>
+            </li>
+
+            <li class="nav-item d-block d-lg-none">
+              <a class="nav-link icon-link" role="button" (click)="userProfile()">
+                <fa-icon [icon]="faUser"></fa-icon>
+                {{ 'DASHBOARD.PROFIL' | translate }}
+              </a>
+            </li>
+            <li class="nav-item d-block d-lg-none">
+              <a class="nav-link icon-link" role="button" (click)="logout()">
+                <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
+                {{ 'DASHBOARD.EXIT' | translate }}
+              </a>
+            </li>
+
+            <li class="nav-item dropdown d-none d-lg-block">
+              <a 
+                class="nav-link dropdown-toggle icon-link" 
+                href="#" 
+                role="button"
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+                <fa-icon [icon]="faCircleUser"></fa-icon>
+                
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" role="button" (click)="userProfile()">
+                  <fa-icon [icon]="faUser"></fa-icon>
+                  {{ 'DASHBOARD.PROFIL' | translate }}
+                </a></li>
+                <li><a class="dropdown-item" role="button" (click)="logout()">
+                  <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
+                  {{ 'DASHBOARD.EXIT' | translate }}
+                </a></li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+
+        <li *ngIf="showAdminSection">
+          <ul class="navbar-nav col">
+            <li class="nav-item mx-auto">
+              <a class="nav-link icon-link" role="button" (click)="adminBookedAppointments()">
+                <fa-icon [icon]="faAddressBook"></fa-icon>
+                {{ 'DASHBOARD.BOOKINGS' | translate }}
+              </a>
+            </li>
+            <li class="nav-item mx-auto">
+              <a class="nav-link icon-link" role="button" (click)="adminAppointments()">
+                <fa-icon [icon]="faCalendar"></fa-icon>
+                {{ 'DASHBOARD.CALENDAR' | translate }}
+              </a>
+            </li>
+            <li class="nav-item mx-auto">
+              <a class="nav-link icon-link" role="button" (click)="adminProducts()">
+                <fa-icon [icon]="faHouse"></fa-icon>
+                {{ 'DASHBOARD.PRODUCTS' | translate }}
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a 
+                class="nav-link dropdown-toggle icon-link" 
+                href="#" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+                <fa-icon [icon]="faCircleUser"></fa-icon>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" role="button" (click)="adminProfile()">
+                  <fa-icon [icon]="faUser"></fa-icon>
+                  {{ 'DASHBOARD.PROFIL' | translate }}
+                </a></li>
+                <li><a class="dropdown-item" role="button" (click)="logout()">
+                  <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
+                  {{ 'DASHBOARD.EXIT' | translate }}
+                </a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="navbar-lang dropdown ms-2 ms-lg-1">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ 'LANG' | translate }}
+      </a>
+      <ul class="dropdown-menu">
+        <li *ngFor="let lang of translate.getLangs()">
+          <a class="dropdown-item" (click)="switchLanguage(lang)">
+            {{ lang | uppercase }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>

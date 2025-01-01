@@ -1,0 +1,68 @@
+<app-layout>
+  <h1>{{ 'BOOKINGS.THIS' | translate }}</h1>
+
+  <div *ngIf="emptyList">
+    <div class="alert alert-light" role="alert">
+      {{ emptyList | translate }}
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table *ngIf="showBookings" class="table">
+      <thead>
+        <tr>
+          <th>{{ 'PRODUCT.TERMAL_CENTRE' | translate }}</th>
+          <th>{{ 'APPOINTMENT.DATE' | translate }}</th>
+          <th>{{ 'APPOINTMENT.PRICE' | translate }}</th>
+          <th>{{ 'BOOKINGS.PEOPLE' | translate }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
+          <td>{{ booking.appointment?.product?.name }}</td>
+          <td>{{ booking.appointment?.date }}</td>
+          <td>{{ booking.appointment?.price }}</td>
+          <td>{{ booking.people }}</td>
+          <td>
+            <button 
+              class="nav-link icon-link hover-alert" 
+              type="button" 
+              data-bs-toggle="modal" 
+              data-bs-target="#deleteBookingModal"
+              (click)="setCurrentDeleteBooking(booking)">
+              <fa-icon [icon]="faTrashCan"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</app-layout>
+
+<div class="modal fade" id="deleteBookingModal" tabindex="-1" aria-labelledby="deleteBookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title fs-5" id="deleteBookingModalLabel">{{ 'BOOKINGS.DELETE' | translate }}</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              {{ 'MODAL.DELETE_BOOKINGS_TEXT' | translate }}
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                {{ 'BACK' | translate }}
+              </button>
+              <button 
+                  type="button" 
+                  data-bs-dismiss="modal"
+                  (click)="cancelBooking(currentDeleteBooking)"  
+                  class="btn btn-primary">
+                  {{ 'DELETE' | translate }}
+              </button>
+          </div>
+      </div>
+  </div>
+</div>

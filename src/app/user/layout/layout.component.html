@@ -1,0 +1,14 @@
+<div class="custom-layout-md">
+    <app-dashboard-navigation
+        [links]="[
+            { labelKey: 'DASHBOARD.PROFIL', route: '/user/profile' },
+            { labelKey: 'DASHBOARD.BOOKINGS', route: '/user/bookings' },
+            { labelKey: 'DASHBOARD.FAVOURITES', route: '/user/favourites' },
+        ]">
+    </app-dashboard-navigation>
+  
+    <div class="custom-layout-bg">
+        <ng-content></ng-content>
+    </div>
+</div>
+  

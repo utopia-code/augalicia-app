@@ -1,0 +1,8 @@
+<div>
+  <div class="custom-title-solid">{{ title | translate}}</div>
+  <ul class="custom-layout-bg p-3" style="column-count: 2;">
+    <ng-container *ngFor="let item of items">
+      <li>{{ langKey + item.name | translate}}</li>
+    </ng-container>
+  </ul>
+</div>

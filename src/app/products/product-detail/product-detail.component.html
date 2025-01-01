@@ -1,0 +1,284 @@
+<div *ngIf="product">
+
+  <div id="carouselAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button *ngFor="let image of product.images; let i = index" 
+        type="button" 
+        data-bs-target="#carouselAutoplaying" 
+        [attr.data-bs-slide-to]="i" 
+        [class.active]="i === 0" 
+        aria-current="true" 
+        [attr.aria-label]="'Slide ' + (i + 1)">
+      </button>
+    </div>
+    <div class="carousel-inner">
+      <ng-container *ngFor="let image of product.images; let i = index">
+        <div class="carousel-item" [class.active]="i === 0">
+          <img [src]="image.url" alt="{{ image.name }}" class="d-block w-100">
+        </div>
+      </ng-container>
+      
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <h1 class="mt-4">{{ product.name }}</h1>
+
+  <div class="row ">
+    <div class="col-lg-8">
+
+      <ng-container *ngFor="let notification of product.notifications">
+        <div 
+          *ngIf="notification.position === 'top'"
+          class="alert d-flex align-items-top mb-4"
+          role="alert"
+          [ngClass]="{
+            'alert-danger': notification.type === 'alert',
+            'alert-primary': notification.type === 'info',
+            'alert-warning': notification.type === 'advice'}">
+          <fa-icon 
+            class="me-2"
+            [icon]="notification.type === 'info' ? faCircleInfo :
+              notification.type === 'alert' ? faTriangleExclamation :
+              faCircleExclamation ">
+          </fa-icon>
+          <div>{{ notification.desc }}</div>
+        </div>
+      </ng-container>
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <div class="custom-title-solid">{{ 'PRODUCT.TEMPERATURE' | translate}}</div>
+          <p class="custom-layout-bg p-3">{{ product.temperature }}°C</p>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <div class="custom-title-solid">{{ 'PRODUCT.TYPE_WATER' | translate}}</div>
+          <div class="custom-layout-bg d-flex flex-wrap p-3">
+            <span 
+              *ngFor="let typeWater of product.typeWaters"
+              class="custom-badge">
+              {{ 'MASTER_TABLES.TYPE_WATER.' + typeWater.name | translate }}
+            </span>
+          </div>
+        </div>
+
+        <app-list-display
+          class="col-md-6 mb-3"
+          [title]="'PRODUCT.TREATMENTS' | translate"
+          [langKey]="'MASTER_TABLES.TREATMENTS.'"
+          [items]="product.treatments || []">
+        </app-list-display>
+
+        <app-list-display
+          class="col-md-6 mb-3"
+          [title]="'PRODUCT.TERMAL_TECHNIQUES'"
+          [langKey]="'MASTER_TABLES.TERMAL_TECHNIQUES.'"
+          [items]="product.termalTechniques || []">
+        </app-list-display>
+
+        <app-list-display
+          class="col-md-6 mb-3"
+          [title]="'PRODUCT.COMPLEMENTARY_TECHNIQUES' | translate"
+          [langKey]="'MASTER_TABLES.COMPLEMENTARY_TECHNIQUES.'"
+          [items]="product.complementaryTechniques || []">
+        </app-list-display>
+        
+        <app-list-display
+          class="col-md-6 mb-3"
+          [title]="'PRODUCT.SERVICES' | translate"
+          [langKey]="'MASTER_TABLES.SERVICES.'"
+          [items]="product.services || []">
+        </app-list-display>
+
+        <app-list-display
+          class="col-md-6 mb-3"
+          [title]="'PRODUCT.ACCESSIBILITY' | translate"
+          [langKey]="'MASTER_TABLES.ACCESSIBILITY.'"
+          [items]="product.accesibility || []">
+        </app-list-display>
+
+      </div>
+
+      <ng-container *ngFor="let notification of product.notifications">
+        <div 
+          *ngIf="notification.position === 'middle'"
+          class="alert d-flex align-items-top mb-4"
+          role="alert"
+          [ngClass]="{
+            'alert-danger': notification.type === 'alert',
+            'alert-primary': notification.type === 'info',
+            'alert-warning': notification.type === 'advice'}">
+          <fa-icon 
+            class="me-2"
+            [icon]="notification.type === 'info' ? faCircleInfo :
+              notification.type === 'alert' ? faTriangleExclamation :
+              faCircleExclamation ">
+          </fa-icon>
+          <div>{{ notification.desc }}</div>
+        </div>
+      </ng-container>
+
+      <h4 class="mb-3">Descripcion: </h4>
+      <p [innerHTML]="product.desc | lineBreak"></p>
+
+    </div>
+
+    <div  class="col-lg-4">
+      <div class="custom-bg-aside my-4 mt-lg-0 py-5 px-4">
+        <h5 class="fw-bold">{{ 'PRODUCT.TYPE_TERMAL_CENTRE' | translate}}</h5>
+        <p>{{ 'MASTER_TABLES.TYPE_TERMAL_CENTRE.' + product.typeTermalCentre?.name | translate}}</p>
+
+        <ng-container *ngIf="product.openingSeason && product.openingSeason.length > 0">
+          <h5 class="fw-bold">{{ 'PRODUCT.OPENING_SEASON' | translate}}</h5>
+          <p><span *ngFor="let month of product.openingSeason" class="separator">{{ 'MASTER_TABLES.OPENING_SEASON.' + month.name | translate }}</span></p>
+        </ng-container>
+          
+        <h5 class="fw-bold">{{ 'PRODUCT.MIN_AGE' | translate}}</h5>
+        <p>{{ product.ageRequirement }} años</p>
+
+        <h5 class="fw-bold">{{ 'PRODUCT.ADDRESS' | translate}}</h5>
+        <p>{{ product.address }}<br>{{ product.cp }}<br>{{ product.location }}</p>
+
+        <h5 class="fw-bold">{{ 'PRODUCT.CONTACT_DATA' | translate}}</h5>
+        <p>{{ 'PRODUCT.TEL' | translate}}: <a class="custom-link" href="tel:{{ product.tel }}">{{ product.tel }}</a> <br>
+          {{ 'PRODUCT.EMAIL' | translate}}: <a class="custom-link" href="mailto:{{ product.email }}">{{ product.email }}</a> <br>
+          {{ 'PRODUCT.WEB' | translate}}: <a class="custom-link" href="https://{{ product.web }}"> {{ product.web  | shortUrl}} </a>
+        </p>
+
+        <div *ngIf="showBookingButton">
+          <button 
+            type="button" 
+            class="btn btn-primary mt-4 w-100" 
+            data-bs-toggle="modal" 
+            data-bs-target="#calendarModal">
+            {{ 'BOOKINGS.BUTTON' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngFor="let notification of product.notifications">
+      <div 
+        *ngIf="notification.position === 'bottom'"
+        class="alert d-flex align-items-top col-lg-8 my-3"
+        role="alert"
+        [ngClass]="{
+          'alert-danger': notification.type === 'alert',
+          'alert-primary': notification.type === 'info',
+          'alert-warning': notification.type === 'advice'}">
+        <fa-icon 
+          class="me-2"
+          [icon]="notification.type === 'info' ? faCircleInfo :
+            notification.type === 'alert' ? faTriangleExclamation :
+            faCircleExclamation ">
+        </fa-icon>
+        <div>{{ notification.desc }}</div>
+      </div>
+    </ng-container>
+
+  </div>
+
+  <div id="map" style="height: 500px; width: 100%;" class="mt-4"></div>
+  <app-map 
+    [coordinates]="productInfoMap"
+    [nearbyCoordinates]="nearbyProductsInfoMap">
+  </app-map> 
+
+  <app-related-products-list 
+    [products]="nearbyProducts">
+  </app-related-products-list>
+
+</div>
+
+<div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title fs-5" id="calendarModalLabel">{{ 'APPOINTMENT.TITLE' | translate }}</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">{{ 'APPOINTMENT.DATE' | translate }}</th>
+                  <th scope="col">{{ 'APPOINTMENT.HOUR' | translate }}</th>
+                  <th scope="col">{{ 'APPOINTMENT.PRICE' | translate }}</th>
+                  <th scope="col">{{ 'APPOINTMENT.MAX_CAPACITY' | translate }}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let appointment of appointmentsList; let i = index">
+                  <tr>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.hour }}</td>
+                    <td>{{ appointment.price }}</td>
+                    <td>{{ appointment.max_capacity }}</td>
+              
+                    <td>
+                        <button 
+                            *ngIf="appointment.id !== undefined" 
+                            (click)="toggleBookingForm(i)"
+                            [disabled]="appointment.is_booked"
+                            [title]="getRemainingPlacesTitle(appointment)"
+                            class="btn btn-secondary" >
+                            {{ 'BOOKINGS.BUTTON' | translate }}
+                        </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="activeRowIndex === i">
+                    <td colspan="5">
+                      <div class="booking-form my-3">
+                        <form [formGroup]="bookingForm" (ngSubmit)="bookAppointment()">
+                            <div class="mb-3">
+                                <label class="form-label" for="people">{{ 'BOOKINGS.PEOPLE' | translate }}</label>
+                                <input class="form-control" type="number" id="people" formControlName="people">
+                    
+                                <div *ngIf="bookingForm.get('people')?.invalid && bookingForm.get('people')?.touched">
+                                  {{ 'BOOKINGS.ERROR_PEOPLE' | translate }}
+                                </div>
+                            </div>
+                
+                            <div class="mb-3">
+                              <label class="form-label" for="appointmentId">{{ 'BOOKINGS.SELECTED' | translate }}</label>
+                              <input class="form-control" type="text" [value]="getAppointmentDetails(bookingForm.value.appointmentId)" id="appointmentId" disabled>
+                            
+                              <div *ngIf="bookingForm.get('appointmentId')?.invalid && bookingForm.get('appointmentId')?.touched">
+                                {{ 'BOOKINGS.ERROR_SELECTED' | translate }}
+                              </div>
+                            </div>
+              
+                            <div *ngIf="errorMessage" class="error-message">
+                              {{ errorMessage }}
+                            </div>
+                              
+                            <div class="d-flex justify-content-center">
+                              <button type="submit" class="btn btn-primary mx-1" [disabled]="bookingForm.invalid">{{ 'BOOKINGS.CONFIRM_PASSWORD' | translate }}</button>
+                              <button type="button" class="btn btn-secondary mx-1" (click)="closeBookingForm()"> {{ 'CANCEL' | translate }} </button>
+                            </div>
+                            
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ "CLOSE" | translate }}</button>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="mb-4 d-flex flex-wrap row-gap-1">
+    <span *ngFor="let filter of appliedFilters" class="badge text-bg-primary me-1">
+      {{  'MASTER_TABLES.' + filter.type + '.' + filter.label | translate }}
+        <fa-icon [icon]="faXmark" class="" (click)="removeFilter(filter.type)"></fa-icon>
+    </span>
+</div>
+
+<div class="row custom-visibility-filters">
+
+    <div class="filter-toogler-icon" (click)="toogleFilterContainer()">
+        <fa-icon 
+            [icon]="showFilter ? faCircleXmark : faFilter" 
+            class="fs-4">
+        </fa-icon>
+        <span class="ms-1">{{ showFilter ? ('FILTERS.CLOSE' | translate) : ('FILTERS.SHOW' | translate) }}</span>
+    </div>
+
+    <div class="col-md-3 pe-0 accordion accordion-flush" id="accordionFilter" [class.visible]="showFilter">
+        <div class="accordion-item" *ngFor="let section of accordionSections">
+            <div class="accordion-header">
+                <button 
+                    class="accordion-button {{ section.class }}" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    [attr.data-bs-target]="'#' + section.id"
+                    aria-expanded="true" 
+                    [attr.aria-controls]="section.id">
+                    {{ section.label ? ('PRODUCT.' + section.label | translate) : ('PRODUCT.' + section.filterKey | translate) }}
+                </button>
+            </div>
+          
+            <div id="{{ section.id }}" class="accordion-collapse collapse {{ section.classBody }}">
+                <div class="accordion-body">
+                    <ul>
+                        <li class="accordion-link" 
+                            *ngFor="let item of section.list" 
+                            (click)="applyFilter(section.filterKey, item.id, item.name)"
+                            [ngClass]="{ 'active': isFilterActive(section.filterKey, item.id) }">
+                            <fa-icon [icon]="section.icon" class="me-1"></fa-icon>
+                            {{ 'MASTER_TABLES.' + section.filterKey + '.' + item.name | translate}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9 ps-lg-1 custom-card-list" [class.disabled]="showFilter">
+        <div class="d-flex flex-wrap ms-1">
+            <div *ngFor="let product of products" class="col-12 col-sm-6 col-md-4 mb-2">
+                <div class="card h-100 mx-1 custom-hover-animation">
+                    <div class="c-image">
+                        <ng-container *ngIf="getMainImage(product.images) as mainImage">
+                            <img 
+                                [src]="mainImage.url" 
+                                alt="{{ mainImage.name }}" 
+                                class="card-img-top"
+                                role="button" 
+                                (click)="getProductById(product.id)">
+                        </ng-container>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title"
+                        role="button" 
+                        (click)="getProductById(product.id)">
+                        {{ product.name }}
+                    </h5>
+                        <p class="card-text mb-0">{{ product.desc | truncateWords: 10 }}</p>
+                        <a role="button" (click)="toggleFavourite(product)" 
+                            [ngClass]="{ 'favourite': isFavourite(product.id) }">
+                            <fa-icon [icon]="isFavourite(product.id) ? faHeartSolid : faHeartRegular" class="favourite-icon fs-4"></fa-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

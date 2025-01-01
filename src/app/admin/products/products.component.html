@@ -1,0 +1,77 @@
+<app-layout>
+  <h1>{{ 'DASHBOARD.PRODUCTS' | translate }}</h1>
+
+  <div *ngIf="emptyList">
+    <div class="alert alert-light" role="alert">
+      {{ emptyList | translate }}
+    </div>
+  </div>
+
+  <table *ngIf="products.length > 0" class="table">
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td class="icon-cell">
+          <button 
+            class="nav-link icon-link hover-primary" 
+            type="button" 
+            (click)="updateProduct(product)" >
+            <fa-icon [icon]="faPenToSquare"></fa-icon>
+          </button>
+        </td>
+        <td class="icon-cell">
+          <button 
+            class="nav-link icon-link hover-alert" 
+            type="button" 
+            data-bs-toggle="modal" 
+            data-bs-target="#deleteProductModal"
+            (click)="setCurrentDeleteProduct(product)">
+            <fa-icon [icon]="faTrashCan"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button 
+    *ngIf="!isFormVisible"
+    type="button" 
+    class="btn btn-primary mt-4" 
+    (click)="createProduct()">
+    {{ 'PRODUCT.CREATE' | translate }}
+  </button>
+
+  <div *ngIf="isFormVisible">
+    <app-product-form 
+      [productId]="currentProductId"
+      (sentComplete)="onFormComplete()"
+      (formCancelled)="onFormCancelled()">
+    </app-product-form>
+  </div>
+  
+</app-layout>
+
+
+<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title fs-5" id="deleteProductModalLabel">{{ 'PRODUCT.DELETE' | translate }}</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              {{ 'MODAL.DELETE_PRODUCT_TEXT' | translate }}
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button 
+                  type="button" 
+                  data-bs-dismiss="modal"
+                  (click)="deleteProduct(currentDeleteProduct)"  
+                  class="btn btn-primary">
+                  {{ 'DELETE' | translate }}
+              </button>
+          </div>
+      </div>
+  </div>
+</div>

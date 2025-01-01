@@ -1,0 +1,16 @@
+.c-img-thumbnail {
+    width: 120px;
+    height: 120px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.card {
+    --bs-card-inner-border-radius: 0;
+    --bs-card-border-radius: 0;
+    --bs-card-border-color: transparent;
+}

@@ -1,0 +1,102 @@
+<h1 class="text-center">Registro</h1>
+<form [formGroup]="registerForm" (ngSubmit)="register()" class="custom-layout-sm">
+    <div class="mb-3">
+        <label for="name" class="form-label">{{ 'FORM.FIRST_NAME' | translate }}: </label>
+        <input 
+            type="text" 
+            formControlName="name" 
+            class="form-control"
+            [ngClass]="{'is-invalid': name.errors && isValidForm != null && !isValidForm }"
+        >
+
+        <div *ngIf="name.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+            <div *ngIf="name.errors['required']">
+                {{ 'FORM.ERROR.REQUIRED' | translate }}
+            </div>
+            <div *ngIf="name.errors['minlength']">
+              {{ 'FORM.ERROR.MIN_LENGTH' | translate: { field: 'FORM.FIRST_NAME' | translate, value: 3 } }}
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="surname" class="form-label">{{ 'FORM.LAST_NAME' | translate }}: </label>
+        <input 
+            type="text" 
+            formControlName="surname" 
+            class="form-control"
+            [ngClass]="{'is-invalid': surname.errors && isValidForm != null && !isValidForm }"
+        >
+
+        <div *ngIf="surname.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+            <div *ngIf="surname.errors['required']">
+                {{ 'FORM.ERROR.REQUIRED' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">{{ 'FORM.EMAIL' | translate }}: </label>
+        <input 
+            type="email" 
+            formControlName="email" 
+            class="form-control"
+            [ngClass]="{'is-invalid': email.errors && isValidForm != null && !isValidForm }"
+        >
+
+        <div *ngIf="email.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+            <div *ngIf="email.errors['required']">
+                {{ 'FORM.ERROR.REQUIRED' | translate }}
+            </div>
+            <div *ngIf="email.errors['pattern']">
+                {{ 'FORM.ERROR.EMAIL_INVALID' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">{{ 'FORM.PASSWORD' | translate }}: </label>
+        <input 
+            type="password" 
+            formControlName="password" 
+            class="form-control"
+            [ngClass]="{'is-invalid': password.errors && isValidForm != null && !isValidForm }"
+        >
+
+        <div *ngIf="password.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+            <div *ngIf="password.errors['required']">
+                {{ 'FORM.ERROR.REQUIRED' | translate }}
+            </div>
+            <div *ngIf="password.errors['minlength']">
+                {{ 'FORM.ERROR.MIN_LENGTH' | translate: { field: 'FORM.PASSWORD' | translate, value: 6 } }}
+            </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="role" class="form-label">{{ 'FORM.ROLE' | translate }}:</label>
+        <select 
+            id="role" 
+            formControlName="role" 
+            class="form-select"
+            [ngClass]="{'is-invalid': role.errors && isValidForm != null && !isValidForm }"
+        >
+            <option value="" disabled selected>-- {{ 'FORM.SELECT' | translate }} --</option>
+            <option *ngFor="let option of roles" [value]="option.value">{{ option.label | translate }}</option>
+        </select>
+        <div *ngIf="role.errors && isValidForm != null && !isValidForm" class="invalid-feedback">
+            {{ 'FORM.ERROR.REQUIRED' | translate: { field: 'FORM.ROLE' | translate | lowercase } }}
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="mb-3 alert alert-danger" role="alert">
+        {{ errorMessage | translate }}
+    </div>
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button type="submit"  class="btn btn-primary mt-3">
+            {{ 'FORM.REGISTER' | translate }}
+        </button> 
+    </div>   
+</form>
+

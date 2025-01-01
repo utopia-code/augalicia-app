@@ -1,0 +1,10 @@
+<app-layout>
+    <h1>{{ 'DASHBOARD.PROFIL' | translate }}</h1>
+    <div *ngIf="admin">
+        <p>{{ 'FORM.FIRST_NAME' | translate }}: {{ admin.name }}</p>
+        <p>{{ 'FORM.LAST_NAME' | translate }}: {{ admin.surname }}</p>
+        <p>{{ 'FORM.EMAIL' | translate }}: {{ admin.email }}</p>
+    </div>
+
+    <app-edit-profile (editComplete)="onEditComplete()"></app-edit-profile>
+</app-layout>

@@ -1,0 +1,14 @@
+<div class="custom-layout-md">
+    <app-dashboard-navigation
+        [links]="[
+            { labelKey: 'DASHBOARD.PROFIL', route: '/admin/profile' },
+            { labelKey: 'DASHBOARD.PRODUCTS', route: '/admin/products' },
+            { labelKey: 'DASHBOARD.CALENDAR', route: '/admin/appointments' },
+            { labelKey: 'DASHBOARD.BOOKINGS', route: '/admin/booked-appointments' }
+        ]">
+    </app-dashboard-navigation>
+  
+    <div class="custom-layout-bg">
+        <ng-content></ng-content>
+    </div>
+</div>

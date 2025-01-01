@@ -1,0 +1,108 @@
+<!-- 
+swimming-pool-9101047_1280_600
+swimming-pool-2531950_1280_600
+underwater-4286600_1280_600
+woman-with-closed-eyes-leaning-her-head-into-pool_600
+
+funny-underwater-family-legs-swimming-poo_600
+spa-concept-with-woman-relaxing-water_600
+
+underwater-807654_1280_600
+pexels-cottonbro-3997984_600
+relaxed-couple-wearing-bathrobes-while-enjoying-health-spa-focus-is-man_600
+water-1867710_1280_600
+pexels-dmitriy-steinke-559643503-17428224_600
+towel-2608095_1280_600
+
+pexels-cottonbro-7235060_600
+swimming-7271893_1280_600
+
+-->
+
+<div class="blobs-animation">
+
+    <div class="container my-4 mt-md-4 mb-md-5">
+        <div class="d-flex flex-wrap mt-3">
+            <div 
+                *ngFor="let card of filterCards"
+                class="col-6 col-lg-3 custom-hover-animation" 
+                (click)="showProductsByFilters(card.linkType, card.linkId)">
+                <div class="m-1">
+                    <div class="c-image">
+                        <img src="http://localhost:3000/{{card.img}}.webp" alt="img {{card.title | translate}}">
+                    </div>
+                    <div class="c-body">
+                        <button class="btn btn-secondary no-hover w-100">{{ card.title | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex flex-wrap mt-5">
+            <div 
+                *ngFor="let card of infoCards"
+                class="col-6 col-md-4 mb-2">
+                <div class="m-1 py-5 h-100 custom-card-bg">
+                    <div class="text-center">
+                        <fa-icon [icon]="card.icon" class="me-1 fs-1"></fa-icon>
+                    </div>
+                    <div class="text-center px-3">
+                        <h5>{{ 'HOME.' + card.title | translate }}</h5>
+                        <p>{{ 'HOME.' + card.title + '_TEXT' | translate }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table mt-5">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th 
+                        *ngFor="let head of headTable"
+                        scope="col" 
+                        [ngClass]="{'clickable': head.isClickable}">
+                        <ng-container *ngIf="head.isClickable; else notClickable">
+                            <span (click)="showProductsByFilters('type-water', head.filterId)">
+                                {{ 'MASTER_TABLES.TYPE_WATER.' + head.label | translate }}
+                            </span>
+                        </ng-container>
+                        <ng-template #notClickable>
+                            {{ 'MASTER_TABLES.TYPE_WATER.' + head.label | translate }}
+                        </ng-template>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of rowsTable">
+                        <th 
+                            scope="row" 
+                            (click)="showProductsByFilters('treatment', row.filterId)"
+                            [ngClass]="{'clickable': true}">
+                            {{ 'MASTER_TABLES.TREATMENTS.' + row.label | translate }}
+                        </th>
+                        <td *ngFor="let icon of row.data" class="text-center">
+                            <fa-icon 
+                                [icon]="icon.isActive ? faCircle : faCircleEmpty" 
+                                class="fs-6 custom-color-icon"
+                                [ngClass]="{'custom-fill-color': icon.isActive}">
+                            </fa-icon>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <canvas class="blobs-canvas"></canvas>
+    <svg class="filter" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 60 -9" />
+        </filter>
+        </defs>
+    </svg>
+    
+</div>

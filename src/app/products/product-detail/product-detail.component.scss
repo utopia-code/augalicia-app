@@ -1,0 +1,32 @@
+.carousel-item img {
+    height: 280px;
+    width: auto;
+    object-fit: cover;
+
+    @media (min-width: 768px) { height: 526px }
+    @media (min-width: 992px) { height: 526px }
+    @media (min-width: 1200px) { height: 620px }
+    @media (min-width: 1400px) { height: 730px; }
+}
+
+.custom-badge {
+    background-color: rgba(var(--bs-primary-rgb), .2);
+    padding: .3rem 1rem;
+    margin: .2rem;
+}
+
+.separator {
+    &:after {
+        content: "/";
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+    &:last-child:after {
+        display: none;
+    }
+}
+
+.modal {
+    --bs-modal-width: 600px;
+}
